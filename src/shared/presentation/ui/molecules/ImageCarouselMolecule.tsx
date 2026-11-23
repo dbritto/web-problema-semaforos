@@ -24,8 +24,8 @@ export type ImageCarouselMoleculeProps = DumbComponentProps<ImageCarouselMolecul
 
 /**
  * MOLÉCULA COMPARTIDA (Dumb Component): ImageCarouselMolecule
- * Carrusel editorial interactivo con navegación por flechas, indicadores tipo cápsula,
- * autoplay con pausa en hover y tarjeta flotante informativa por cada slide.
+ * Carrusel editorial interactivo y 100% responsive (en escritorio la tarjeta flota sobre la imagen;
+ * en celular la imagen tiene su propio viewport arriba y la tarjeta se apila debajo sin taparla).
  */
 export const ImageCarouselMolecule = defineDumbComponent<ImageCarouselMoleculeProps>(
   'molecule',
@@ -33,7 +33,7 @@ export const ImageCarouselMolecule = defineDumbComponent<ImageCarouselMoleculePr
   ({
     slides,
     autoPlayIntervalMs = 5500,
-    height = '470px',
+    height = '510px',
     accentTone = 'lime',
     testId,
   }) => {
@@ -72,71 +72,74 @@ export const ImageCarouselMolecule = defineDumbComponent<ImageCarouselMoleculePr
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        {/* Pista de imágenes con transición suave */}
-        {slides.map((slide, idx) => {
-          const isCurrent = idx === activeIndex;
-          return (
-            <div
-              key={slide.id}
-              className="editorial-carousel__slide"
+        {/* Viewport de imágenes */}
+        <div className="editorial-carousel__viewport">
+          {slides.map((slide, idx) => {
+            const isCurrent = idx === activeIndex;
+            return (
+              <div
+                key={slide.id}
+                className="editorial-carousel__slide"
+                style={{
+                  opacity: isCurrent ? 1 : 0,
+                  transform: isCurrent ? 'scale(1)' : 'scale(1.04)',
+                  pointerEvents: isCurrent ? 'auto' : 'none',
+                  zIndex: isCurrent ? 1 : 0,
+                }}
+              >
+                <img src={slide.imageUrl} alt={slide.title} />
+                <div className="editorial-carousel__gradient" />
+              </div>
+            );
+          })}
+
+          {/* Barra superior: Tag del slide + Contador 01 / 03 */}
+          <div className="editorial-carousel__topbar">
+            <span
               style={{
-                opacity: isCurrent ? 1 : 0,
-                transform: isCurrent ? 'scale(1)' : 'scale(1.04)',
-                pointerEvents: isCurrent ? 'auto' : 'none',
-                zIndex: isCurrent ? 1 : 0,
+                background: accentColor,
+                color: accentTextColor,
+                padding: '6px 13px',
+                borderRadius: '999px',
+                fontSize: '0.73rem',
+                fontWeight: 800,
+                letterSpacing: '0.02em',
+                boxShadow: '0 6px 18px rgba(0, 0, 0, 0.18)',
               }}
             >
-              <img src={slide.imageUrl} alt={slide.title} />
-              <div className="editorial-carousel__gradient" />
-            </div>
-          );
-        })}
+              {currentSlide.badge}
+            </span>
 
-        {/* Barra superior: Tag del slide + Contador 01 / 03 */}
-        <div className="editorial-carousel__topbar">
-          <span
-            style={{
-              background: accentColor,
-              color: accentTextColor,
-              padding: '7px 16px',
-              borderRadius: '999px',
-              fontSize: '0.78rem',
-              fontWeight: 800,
-              letterSpacing: '0.03em',
-              boxShadow: '0 6px 18px rgba(0, 0, 0, 0.18)',
-            }}
-          >
-            {currentSlide.badge}
-          </span>
-
-          <span
-            style={{
-              background: 'rgba(20, 20, 22, 0.78)',
-              backdropFilter: 'blur(10px)',
-              color: '#ffffff',
-              padding: '6px 14px',
-              borderRadius: '999px',
-              fontSize: '0.78rem',
-              fontWeight: 700,
-            }}
-          >
-            {String(activeIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-          </span>
+            <span
+              style={{
+                background: 'rgba(20, 20, 22, 0.82)',
+                backdropFilter: 'blur(10px)',
+                color: '#ffffff',
+                padding: '5px 12px',
+                borderRadius: '999px',
+                fontSize: '0.74rem',
+                fontWeight: 700,
+              }}
+            >
+              {String(activeIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+            </span>
+          </div>
         </div>
 
-        {/* Controles Inferiores: Tarjeta Flotante + Flechas + Píldoras de Paginación */}
+        {/* Controles Inferiores: Tarjeta Informativa + Flechas + Píldoras de Paginación */}
         <div className="editorial-carousel__bottom">
           <div className="editorial-carousel__caption-card">
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center',
-                gap: '12px',
+                alignItems: 'flex-start',
+                gap: '10px',
+                flexWrap: 'wrap',
                 marginBottom: '6px',
               }}
             >
-              <strong style={{ fontSize: '1.05rem', color: '#111827' }}>
+              <strong style={{ fontSize: '1rem', color: '#111827', lineHeight: 1.3 }}>
                 {currentSlide.title}
               </strong>
               {currentSlide.highlightStat && (
@@ -146,7 +149,7 @@ export const ImageCarouselMolecule = defineDumbComponent<ImageCarouselMoleculePr
                     color: '#a3e635',
                     padding: '4px 10px',
                     borderRadius: '999px',
-                    fontSize: '0.74rem',
+                    fontSize: '0.72rem',
                     fontWeight: 700,
                     whiteSpace: 'nowrap',
                   }}
@@ -155,18 +158,18 @@ export const ImageCarouselMolecule = defineDumbComponent<ImageCarouselMoleculePr
                 </span>
               )}
             </div>
-            <p style={{ fontSize: '0.86rem', color: '#374151', lineHeight: 1.5 }}>
+            <p style={{ fontSize: '0.84rem', color: '#374151', lineHeight: 1.5 }}>
               {currentSlide.description}
             </p>
 
-            {/* Fila de Dots + Flechas Prev/Next dentro de la tarjeta flotante */}
+            {/* Fila de Dots + Flechas Prev/Next dentro de la tarjeta */}
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                marginTop: '14px',
-                paddingTop: '12px',
+                marginTop: '12px',
+                paddingTop: '10px',
                 borderTop: '1px solid #e5e7eb',
               }}
             >
@@ -181,7 +184,7 @@ export const ImageCarouselMolecule = defineDumbComponent<ImageCarouselMoleculePr
                       aria-label={`Ir a imagen ${idx + 1}: ${slide.title}`}
                       onClick={() => setActiveIndex(idx)}
                       style={{
-                        width: isCurrent ? '30px' : '10px',
+                        width: isCurrent ? '28px' : '10px',
                         height: '10px',
                         borderRadius: '999px',
                         border: 'none',

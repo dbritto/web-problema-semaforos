@@ -17,7 +17,7 @@ export type CaliContextAndProblemsOrganismProps =
 
 /**
  * ORGANISMO DEL MÓDULO (Dumb Component): CaliContextAndProblemsOrganism
- * Diseño amplio (Full-Width) y espacioso para explicar el contexto de Cali y los problemas detectados.
+ * Diseño amplio (Full-Width) y 100% responsive en celular para explicar el contexto de Cali y los problemas detectados.
  */
 export const CaliContextAndProblemsOrganism =
   defineDumbComponent<CaliContextAndProblemsOrganismProps>(
@@ -28,17 +28,17 @@ export const CaliContextAndProblemsOrganism =
         <section
           id="contexto-cali"
           className="sheet-white"
-          style={{ display: 'flex', flexDirection: 'column', gap: '56px' }}
+          style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
         >
-          {/* FILA 1: CONTEXTO DE CALI (50% TEXTO EDITORIAL AMPLIO / 50% IMAGEN GRANDE) */}
+          {/* FILA 1: CONTEXTO DE CALI */}
           <div className="split-story-row">
             <div className="split-story-content">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
                 <span
                   style={{
                     color: 'var(--accent-orange)',
                     fontWeight: 700,
-                    fontSize: '0.95rem',
+                    fontSize: '0.92rem',
                   }}
                 >
                   01 • Contexto en Santiago de Cali —
@@ -50,7 +50,7 @@ export const CaliContextAndProblemsOrganism =
                 ¿Qué está pasando con los semáforos en el Norte y Oriente de Cali?
               </h2>
 
-              <p style={{ color: 'var(--text-body)', fontSize: '1.05rem', lineHeight: 1.75 }}>
+              <p style={{ color: 'var(--text-body)', fontSize: '1rem', lineHeight: 1.72 }}>
                 En las principales arterias viales del <strong>Norte y Oriente de Cali</strong>, la
                 movilidad depende de semáforos conectados a la red eléctrica pública tradicional.
                 Durante el estudio de campo realizado el <strong>{observationWindow}</strong>, se
@@ -58,14 +58,14 @@ export const CaliContextAndProblemsOrganism =
                 peatones sin una señal clara que indique a quién le corresponde avanzar.
               </p>
 
-              <p style={{ color: 'var(--text-body)', fontSize: '1.02rem', lineHeight: 1.75 }}>
+              <p style={{ color: 'var(--text-body)', fontSize: '0.98rem', lineHeight: 1.7 }}>
                 Ante la presencia poca o nula de agentes oficiales de tránsito en estos puntos,
                 personas de la misma comunidad asumen la regulación del paso vehicular a cambio de
                 una colaboración voluntaria (monedas), situación que se vuelve aún más crítica
                 durante las horas pico (4:30 PM a 6:30 PM) y en los días de lluvia.
               </p>
 
-              <div style={{ paddingTop: '8px' }}>
+              <div style={{ paddingTop: '4px' }}>
                 <a href="#que-es-arduino-solar" className="pill-btn pill-btn--danger">
                   Ver cómo lo resolvemos con Arduino y Paneles Solares →
                 </a>
@@ -79,12 +79,12 @@ export const CaliContextAndProblemsOrganism =
               />
               <div
                 className="floating-glass-card"
-                style={{ bottom: '24px', left: '24px', maxWidth: '340px' }}
+                style={{ bottom: '20px', left: '20px', maxWidth: '340px' }}
               >
-                <strong style={{ fontSize: '0.92rem', color: '#111827', display: 'block' }}>
+                <strong style={{ fontSize: '0.9rem', color: '#111827', display: 'block' }}>
                   📍 Evidencia en Campo (Hora Pico)
                 </strong>
-                <span style={{ fontSize: '0.82rem', color: '#374151', lineHeight: 1.45 }}>
+                <span style={{ fontSize: '0.8rem', color: '#374151', lineHeight: 1.45 }}>
                   Conteos vehiculares cada 5 minutos y medición con cronómetro en 12 intersecciones
                   de Cali.
                 </span>
@@ -92,14 +92,14 @@ export const CaliContextAndProblemsOrganism =
             </div>
           </div>
 
-          {/* FILA 2: LOS PROBLEMAS QUE TRAE (TARJETAS AMPLIAS Y ESPACIOSAS EN 2 COLUMNAS) */}
+          {/* FILA 2: LOS PROBLEMAS QUE TRAE */}
           <div
             id="problemas-cali"
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '32px',
-              paddingTop: '48px',
+              gap: '28px',
+              paddingTop: '36px',
               borderTop: '1px solid var(--border-light)',
             }}
           >
@@ -108,7 +108,7 @@ export const CaliContextAndProblemsOrganism =
                 style={{
                   color: 'var(--accent-orange)',
                   fontWeight: 700,
-                  fontSize: '0.9rem',
+                  fontSize: '0.88rem',
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
                 }}
@@ -129,18 +129,18 @@ export const CaliContextAndProblemsOrganism =
                       color: '#ffffff',
                       padding: '6px 14px',
                       borderRadius: '999px',
-                      fontSize: '0.8rem',
+                      fontSize: '0.78rem',
                       fontWeight: 700,
                     }}
                   >
                     Hipótesis Principal • Tiempo de Espera
                   </span>
-                  <h4 style={{ fontSize: '1.45rem', marginTop: '16px', color: '#ffffff' }}>
+                  <h4 style={{ fontSize: '1.35rem', marginTop: '14px', color: '#ffffff' }}>
                     El tiempo de espera se duplica y las colas colapsan la vía
                   </h4>
                   <p
                     style={{
-                      fontSize: '0.98rem',
+                      fontSize: '0.94rem',
                       color: 'rgba(255,255,255,0.94)',
                       marginTop: '10px',
                       lineHeight: 1.65,
@@ -152,8 +152,8 @@ export const CaliContextAndProblemsOrganism =
                     segundos.
                   </p>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '0.88rem', fontWeight: 700 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>
                     Afecta transporte público MIO, particulares y carga
                   </span>
                   <span className="circle-arrow-badge">↗</span>
@@ -163,12 +163,12 @@ export const CaliContextAndProblemsOrganism =
               <article className="bento-card-dark">
                 <div>
                   <BadgeAtom text="Hipótesis Complementaria • Lluvia y Red Eléctrica" tone="warning" />
-                  <h4 style={{ fontSize: '1.45rem', marginTop: '16px', color: '#ffffff' }}>
+                  <h4 style={{ fontSize: '1.35rem', marginTop: '14px', color: '#ffffff' }}>
                     Apagones masivos bajo la lluvia y alto riesgo de accidentes
                   </h4>
                   <p
                     style={{
-                      fontSize: '0.98rem',
+                      fontSize: '0.94rem',
                       color: '#d1d5db',
                       marginTop: '10px',
                       lineHeight: 1.65,
@@ -180,8 +180,8 @@ export const CaliContextAndProblemsOrganism =
                     peatones y voluntarios comunitarios.
                   </p>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '0.88rem', color: '#a3e635', fontWeight: 700 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '0.85rem', color: '#a3e635', fontWeight: 700 }}>
                     Vulnerabilidad por dependencia de la red eléctrica
                   </span>
                   <span className="circle-arrow-badge">→</span>
@@ -191,52 +191,31 @@ export const CaliContextAndProblemsOrganism =
           </div>
 
           {/* FILA 3: FICHA DEL EQUIPO DE INVESTIGACIÓN */}
-          <div
-            className="bento-2col"
-            style={{
-              paddingTop: '12px',
-            }}
-          >
-            <div
-              className="bento-card-light"
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '28px 36px',
-              }}
-            >
+          <div className="bento-2col">
+            <div className="bento-card-light credit-row-card">
               <div>
-                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700 }}>
+                <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)', fontWeight: 700 }}>
                   INSTITUCIÓN UNIVERSITARIA • CALI, COLOMBIA
                 </span>
-                <h4 style={{ fontSize: '1.12rem', color: 'var(--text-dark)', marginTop: '6px' }}>
+                <h4 style={{ fontSize: '1.08rem', color: 'var(--text-dark)', marginTop: '6px' }}>
                   {institution}
                 </h4>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-body)', marginTop: '4px' }}>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-body)', marginTop: '4px' }}>
                   Docente: {docente} • Asignatura: Introducción a la Ingeniería
                 </p>
               </div>
               <span className="circle-arrow-badge">🏛️</span>
             </div>
 
-            <div
-              className="bento-card-light"
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '28px 36px',
-              }}
-            >
+            <div className="bento-card-light credit-row-card">
               <div>
-                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700 }}>
+                <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)', fontWeight: 700 }}>
                   AUTORES DEL ESTUDIO DE CAMPO
                 </span>
-                <h4 style={{ fontSize: '1.05rem', color: 'var(--text-dark)', marginTop: '6px' }}>
+                <h4 style={{ fontSize: '1.02rem', color: 'var(--text-dark)', marginTop: '6px' }}>
                   {authors.join(' • ')}
                 </h4>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-body)', marginTop: '4px' }}>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-body)', marginTop: '4px' }}>
                   Metodología cuantitativa: cronómetro, aforo cada 5 min y encuestas en sector.
                 </p>
               </div>

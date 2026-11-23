@@ -53,9 +53,9 @@ export type IntersectionCardOrganismProps = DumbComponentProps<
 
 /**
  * ORGANISMO DEL MÓDULO (Dumb Component): IntersectionCardOrganism
- * Muestra UN SOLO EJEMPLO CLARO Y COMPARATIVO LADO A LADO:
- * - Lado Izquierdo: Cómo se ve y qué riesgos corre el cruce dependiendo de la red eléctrica deficiente de Cali.
- * - Lado Derecho: El escenario opuesto operando con el Panel Solar + Arduino + Luces LED en Zona Independiente.
+ * Muestra UN SOLO EJEMPLO CLARO Y COMPARATIVO (100% responsive en celular y escritorio):
+ * - Panel 1: Cómo se ve y qué riesgos corre el cruce dependiendo de la red eléctrica deficiente de Cali.
+ * - Panel 2: El escenario opuesto operando con el Panel Solar + Arduino + Luces LED en Zona Independiente.
  */
 export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrganismProps>(
   'organism',
@@ -69,7 +69,6 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
   }) => {
     const isRainActive = intersection.isRaining;
 
-    // Cálculos comparativos claros para el mismo cruce con y sin lluvia
     const brokenGridWaitSeconds = isRainActive ? 185 : 138;
     const brokenGridVehiclesQueue = isRainActive ? 46 : 36;
 
@@ -77,27 +76,27 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
     const solarVehiclesQueue = isRainActive ? 14 : 11;
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
-        {/* Barra Superior de Control del Ejemplo: Selector opcional de cruce + Botón de Lluvia */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+        {/* Barra Superior de Control del Ejemplo */}
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: '16px',
+            gap: '14px',
             background: 'var(--surface-soft)',
-            padding: '20px 28px',
-            borderRadius: '24px',
+            padding: '18px 20px',
+            borderRadius: '22px',
             border: '1px solid var(--border-light)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dark)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', width: '100%' }}>
+            <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-dark)' }}>
               📍 Cruce de Cali analizado:
             </span>
             {availableIntersections.length > 0 && onSelectIntersection ? (
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', flex: 1 }}>
                 {availableIntersections.slice(0, 3).map((item) => {
                   const isSelected = item.id === intersection.id;
                   return (
@@ -108,7 +107,7 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                       className={`pill-btn ${
                         isSelected ? 'pill-btn--dark' : 'pill-btn--secondary'
                       }`}
-                      style={{ padding: '9px 18px', fontSize: '0.84rem' }}
+                      style={{ padding: '9px 16px', fontSize: '0.82rem' }}
                     >
                       {item.name}
                     </button>
@@ -116,18 +115,16 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                 })}
               </div>
             ) : (
-              <strong style={{ fontSize: '1.05rem', color: 'var(--text-dark)' }}>
+              <strong style={{ fontSize: '1rem', color: 'var(--text-dark)' }}>
                 {intersection.name}
               </strong>
             )}
-          </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
             <ButtonAtom
               label={
                 isRainActive
-                  ? '🌧️ Lluvia Activa en Cali (Clic para Día Seco)'
-                  : '☀️ Día Seco en Cali (Clic para Simular Aguacero)'
+                  ? '🌧️ Lluvia Activa (Cambiar a Día Seco)'
+                  : '☀️ Día Seco (Simular Aguacero)'
               }
               variant={isRainActive ? 'danger' : 'secondary'}
               onClick={() =>
@@ -141,47 +138,31 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
           </div>
         </div>
 
-        {/* =====================================================================
-            COMPARACIÓN LADO A LADO DE UN SOLO CRUCE:
-            IZQUIERDA (RED ELÉCTRICA MALA DE LA CIUDAD) vs DERECHA (PANEL SOLAR + ARDUINO)
-           ===================================================================== */}
+        {/* COMPARACIÓN DE UN SOLO CRUCE */}
         <div className="split-story-row" style={{ alignItems: 'stretch' }}>
-          {/* -------------------------------------------------------------------
-              COLUMNA 1: ESCENARIO ACTUAL (DEPENDIENDO DE LA RED ELÉCTRICA MALA)
-             ------------------------------------------------------------------- */}
-          <article
-            style={{
-              background: '#fff5f5',
-              border: '2px solid #fecaca',
-              borderRadius: '32px',
-              padding: '36px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              gap: '24px',
-            }}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {/* PANEL 1: ESCENARIO ACTUAL (DEPENDIENDO DE LA RED ELÉCTRICA MALA) */}
+          <article className="comparison-panel-bad">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   flexWrap: 'wrap',
-                  gap: '10px',
+                  gap: '8px',
                 }}
               >
                 <BadgeAtom
-                  text="❌ ESCENARIO ACTUAL • RED ELÉCTRICA TRADICIONAL"
+                  text="❌ ESCENARIO ACTUAL • RED ELÉCTRICA"
                   tone="danger"
                 />
                 <span
                   style={{
-                    fontSize: '0.8rem',
+                    fontSize: '0.76rem',
                     fontWeight: 800,
                     color: '#991b1b',
                     background: '#fee2e2',
-                    padding: '6px 12px',
+                    padding: '5px 12px',
                     borderRadius: '999px',
                   }}
                 >
@@ -196,19 +177,18 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                 >
                   1. Dependiendo de la Red Eléctrica Inestable de Cali
                 </h3>
-                <p style={{ fontSize: '0.96rem', color: '#991b1b', lineHeight: 1.6 }}>
+                <p style={{ fontSize: '0.94rem', color: '#991b1b', lineHeight: 1.6 }}>
                   En <strong>{intersection.name}</strong>, un bajón de energía o lluvia fuerte
                   apaga el semáforo por completo y deja la intersección sin ley.
                 </p>
               </div>
 
-              {/* Imagen Real de cómo se ve el cruce apagado */}
               <div
                 style={{
                   position: 'relative',
-                  borderRadius: '22px',
+                  borderRadius: '20px',
                   overflow: 'hidden',
-                  height: '250px',
+                  height: '230px',
                   border: '1px solid #fca5a5',
                 }}
               >
@@ -221,58 +201,55 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                   style={{
                     position: 'absolute',
                     inset: 'auto 0 0 0',
-                    padding: '16px 20px',
+                    padding: '14px 16px',
                     background:
-                      'linear-gradient(to top, rgba(127, 29, 29, 0.95), rgba(127, 29, 29, 0.4), transparent)',
+                      'linear-gradient(to top, rgba(127, 29, 29, 0.95), rgba(127, 29, 29, 0.45), transparent)',
                     color: '#ffffff',
                   }}
                 >
-                  <strong style={{ fontSize: '0.92rem', display: 'block' }}>
+                  <strong style={{ fontSize: '0.88rem', display: 'block' }}>
                     🛑 Así se ve el cruce cuando falla la energía:
                   </strong>
-                  <span style={{ fontSize: '0.82rem', color: '#fecaca' }}>
-                    Luces muertas, bloqueo en las 4 esquinas y civiles pidiendo monedas para dar
-                    paso.
+                  <span style={{ fontSize: '0.78rem', color: '#fecaca' }}>
+                    Luces muertas, bloqueo en las 4 esquinas y civiles pidiendo monedas.
                   </span>
                 </div>
               </div>
 
-              {/* Lista Clara de los Riesgos que Corre */}
               <div
                 style={{
                   background: '#ffffff',
-                  borderRadius: '22px',
-                  padding: '22px 24px',
+                  borderRadius: '20px',
+                  padding: '18px 20px',
                   border: '1px solid #fecaca',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '14px',
+                  gap: '12px',
                 }}
               >
-                <strong style={{ fontSize: '0.95rem', color: '#991b1b' }}>
+                <strong style={{ fontSize: '0.92rem', color: '#991b1b' }}>
                   ⚠️ ¿Qué riesgos graves corre este cruce hoy?
                 </strong>
 
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: '1.1rem' }}>💥</span>
-                  <p style={{ fontSize: '0.88rem', color: '#374151', lineHeight: 1.55 }}>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '1.05rem' }}>💥</span>
+                  <p style={{ fontSize: '0.86rem', color: '#374151', lineHeight: 1.5 }}>
                     <strong>Choques por improvisación:</strong> Nadie sabe quién tiene la vía; los
                     vehículos se atraviesan al mismo tiempo sin señal clara.
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: '1.1rem' }}>🦺</span>
-                  <p style={{ fontSize: '0.88rem', color: '#374151', lineHeight: 1.55 }}>
-                    <strong>Peligro para peatones y voluntarios:</strong> Ante la ausencia de
-                    agentes de tránsito, personas de la comunidad se paran en medio de los carros a
-                    regular el paso.
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '1.05rem' }}>🦺</span>
+                  <p style={{ fontSize: '0.86rem', color: '#374151', lineHeight: 1.5 }}>
+                    <strong>Peligro para peatones y voluntarios:</strong> Personas de la comunidad
+                    se paran en medio de los carros a regular el paso.
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: '1.1rem' }}>⛈️</span>
-                  <p style={{ fontSize: '0.88rem', color: '#374151', lineHeight: 1.55 }}>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '1.05rem' }}>⛈️</span>
+                  <p style={{ fontSize: '0.86rem', color: '#374151', lineHeight: 1.5 }}>
                     <strong>Apagón seguro cuando llueve:</strong> Justo cuando el piso mojado exige
                     más precaución, la red eléctrica del sector colapsa.
                   </p>
@@ -280,24 +257,21 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
               </div>
             </div>
 
-            {/* Métricas del Escenario Malo */}
             <div
+              className="two-metrics-grid"
               style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '16px',
                 background: '#fee2e2',
-                padding: '18px 22px',
-                borderRadius: '20px',
+                padding: '16px 20px',
+                borderRadius: '18px',
               }}
             >
               <div>
-                <span style={{ fontSize: '0.78rem', color: '#991b1b', fontWeight: 700 }}>
+                <span style={{ fontSize: '0.75rem', color: '#991b1b', fontWeight: 700 }}>
                   TIEMPO DE ESPERA EN COLA
                 </span>
                 <strong
                   style={{
-                    fontSize: '1.65rem',
+                    fontSize: '1.5rem',
                     color: '#7f1d1d',
                     display: 'block',
                     marginTop: '2px',
@@ -305,18 +279,18 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                 >
                   ⏱️ {brokenGridWaitSeconds} seg
                 </strong>
-                <span style={{ fontSize: '0.76rem', color: '#991b1b' }}>
+                <span style={{ fontSize: '0.74rem', color: '#991b1b' }}>
                   Más de {Math.round(brokenGridWaitSeconds / 60)} minutos detenido
                 </span>
               </div>
 
               <div>
-                <span style={{ fontSize: '0.78rem', color: '#991b1b', fontWeight: 700 }}>
+                <span style={{ fontSize: '0.75rem', color: '#991b1b', fontWeight: 700 }}>
                   TRANCONES CADA 5 MIN
                 </span>
                 <strong
                   style={{
-                    fontSize: '1.65rem',
+                    fontSize: '1.5rem',
                     color: '#7f1d1d',
                     display: 'block',
                     marginTop: '2px',
@@ -324,29 +298,16 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                 >
                   🚗 {brokenGridVehiclesQueue} carros
                 </strong>
-                <span style={{ fontSize: '0.76rem', color: '#991b1b' }}>
+                <span style={{ fontSize: '0.74rem', color: '#991b1b' }}>
                   Cola crítica acumulada
                 </span>
               </div>
             </div>
           </article>
 
-          {/* -------------------------------------------------------------------
-              COLUMNA 2: ESCENARIO CON SOLUCIÓN (PANEL SOLAR + ARDUINO + LED)
-             ------------------------------------------------------------------- */}
-          <article
-            style={{
-              background: 'var(--accent-lime-soft)',
-              border: '2px solid #84cc16',
-              borderRadius: '32px',
-              padding: '36px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              gap: '24px',
-            }}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {/* PANEL 2: ESCENARIO CON SOLUCIÓN (PANEL SOLAR + ARDUINO + LED) */}
+          <article className="comparison-panel-good">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div
                 style={{
                   display: 'flex',
@@ -357,7 +318,7 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                 }}
               >
                 <BadgeAtom
-                  text="✅ ESCENARIO CON SOLUCIÓN • PANEL SOLAR + ARDUINO + LED"
+                  text="✅ CON SOLUCIÓN • PANEL SOLAR + ARDUINO"
                   tone="success"
                 />
                 <TrafficSemaphoreMolecule
@@ -373,20 +334,19 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                 >
                   2. El Mismo Cruce con Panel Solar y Zona Independiente
                 </h3>
-                <p style={{ fontSize: '0.96rem', color: '#166534', lineHeight: 1.6 }}>
+                <p style={{ fontSize: '0.94rem', color: '#166534', lineHeight: 1.6 }}>
                   En <strong>{intersection.name}</strong>, el semáforo produce su propia energía
                   solar y el <strong>Arduino</strong> organiza el tráfico sin depender de la red
                   eléctrica de Cali.
                 </p>
               </div>
 
-              {/* Imagen Real de cómo se ve el cruce con Panel Solar y Luces LED */}
               <div
                 style={{
                   position: 'relative',
-                  borderRadius: '22px',
+                  borderRadius: '20px',
                   overflow: 'hidden',
-                  height: '250px',
+                  height: '230px',
                   border: '1px solid #84cc16',
                 }}
               >
@@ -399,32 +359,30 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                   style={{
                     position: 'absolute',
                     inset: 'auto 0 0 0',
-                    padding: '16px 20px',
+                    padding: '14px 16px',
                     background:
                       'linear-gradient(to top, rgba(20, 83, 45, 0.95), rgba(20, 83, 45, 0.45), transparent)',
                     color: '#ffffff',
                   }}
                 >
-                  <strong style={{ fontSize: '0.92rem', display: 'block' }}>
+                  <strong style={{ fontSize: '0.88rem', display: 'block' }}>
                     ☀️ Así funciona con el Panel Solar y Arduino:
                   </strong>
-                  <span style={{ fontSize: '0.82rem', color: '#dcfce7' }}>
-                    Luces LED de alto brillo encendidas 24/7, paso ordenado y ola verde coordinada
-                    por zona.
+                  <span style={{ fontSize: '0.78rem', color: '#dcfce7' }}>
+                    Luces LED encendidas 24/7, paso ordenado y ola verde coordinada por zona.
                   </span>
                 </div>
               </div>
 
-              {/* Lista Clara de Beneficios y Protección */}
               <div
                 style={{
                   background: '#ffffff',
-                  borderRadius: '22px',
-                  padding: '22px 24px',
+                  borderRadius: '20px',
+                  padding: '18px 20px',
                   border: '1px solid #bef264',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '14px',
+                  gap: '12px',
                 }}
               >
                 <div
@@ -436,63 +394,58 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                     flexWrap: 'wrap',
                   }}
                 >
-                  <strong style={{ fontSize: '0.95rem', color: '#166534' }}>
+                  <strong style={{ fontSize: '0.92rem', color: '#166534' }}>
                     🛡️ ¿Cómo elimina todos los riesgos anteriores?
                   </strong>
                   <ButtonAtom
-                    label="Cambiar Fase LED del Arduino ↻"
+                    label="Cambiar Fase LED ↻"
                     variant="primary"
                     onClick={() => onAdvancePhase(intersection.id)}
                   />
                 </div>
 
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: '1.1rem' }}>☀️</span>
-                  <p style={{ fontSize: '0.88rem', color: '#374151', lineHeight: 1.55 }}>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '1.05rem' }}>☀️</span>
+                  <p style={{ fontSize: '0.86rem', color: '#374151', lineHeight: 1.5 }}>
                     <strong>Nunca se apaga aunque se vaya la luz en Cali:</strong> El panel solar de
-                    180W y su batería de 72 horas mantienen las luces LED (18W) encendidas día,
-                    noche y bajo tormentas.
+                    180W y su batería de 72 horas mantienen las luces LED (18W) encendidas día y
+                    noche.
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: '1.1rem' }}>🤖</span>
-                  <p style={{ fontSize: '0.88rem', color: '#374151', lineHeight: 1.55 }}>
-                    <strong>Cero improvisación con control Arduino:</strong> El microcontrolador
-                    asigna luz verde inteligente según la cola real, protegiendo al peatón y
-                    evitando que civiles arriesguen su vida en la vía.
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '1.05rem' }}>🤖</span>
+                  <p style={{ fontSize: '0.86rem', color: '#374151', lineHeight: 1.5 }}>
+                    <strong>Cero improvisación con control Arduino:</strong> Asigna luz verde según
+                    la cola real, protegiendo al peatón y evitando que civiles arriesguen su vida.
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: '1.1rem' }}>📡</span>
-                  <p style={{ fontSize: '0.88rem', color: '#374151', lineHeight: 1.55 }}>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '1.05rem' }}>📡</span>
+                  <p style={{ fontSize: '0.86rem', color: '#374151', lineHeight: 1.5 }}>
                     <strong>Respaldo por Zona Autónoma:</strong> Conectado a la{' '}
-                    <strong>{intersection.zoneName}</strong> para sincronizar el corredor vial sin
-                    cables eléctricos públicos.
+                    <strong>{intersection.zoneName}</strong> sin cables eléctricos públicos.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Métricas del Escenario Solar */}
             <div
+              className="two-metrics-grid"
               style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '16px',
                 background: '#d9f99d',
-                padding: '18px 22px',
-                borderRadius: '20px',
+                padding: '16px 20px',
+                borderRadius: '18px',
               }}
             >
               <div>
-                <span style={{ fontSize: '0.78rem', color: '#3f6212', fontWeight: 700 }}>
+                <span style={{ fontSize: '0.75rem', color: '#3f6212', fontWeight: 700 }}>
                   TIEMPO DE ESPERA CON SOLAR
                 </span>
                 <strong
                   style={{
-                    fontSize: '1.65rem',
+                    fontSize: '1.5rem',
                     color: '#14532d',
                     display: 'block',
                     marginTop: '2px',
@@ -500,18 +453,18 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                 >
                   ⏱️ {solarWaitSeconds} seg (-71%)
                 </strong>
-                <span style={{ fontSize: '0.76rem', color: '#3f6212' }}>
+                <span style={{ fontSize: '0.74rem', color: '#3f6212' }}>
                   Ahorras {brokenGridWaitSeconds - solarWaitSeconds} segundos por cruce
                 </span>
               </div>
 
               <div>
-                <span style={{ fontSize: '0.78rem', color: '#3f6212', fontWeight: 700 }}>
+                <span style={{ fontSize: '0.75rem', color: '#3f6212', fontWeight: 700 }}>
                   COLA VEHICULAR CADA 5 MIN
                 </span>
                 <strong
                   style={{
-                    fontSize: '1.65rem',
+                    fontSize: '1.5rem',
                     color: '#14532d',
                     display: 'block',
                     marginTop: '2px',
@@ -519,7 +472,7 @@ export const IntersectionCardOrganism = defineDumbComponent<IntersectionCardOrga
                 >
                   🚗 {solarVehiclesQueue} carros
                 </strong>
-                <span style={{ fontSize: '0.76rem', color: '#3f6212' }}>
+                <span style={{ fontSize: '0.74rem', color: '#3f6212' }}>
                   Flujo continuo y despejado
                 </span>
               </div>

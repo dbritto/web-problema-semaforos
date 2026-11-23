@@ -56,8 +56,8 @@ const ZONAL_ADMIN_CAROUSEL_SLIDES: readonly CarouselSlideItem[] = [
 
 /**
  * ORGANISMO DEL MÓDULO (Dumb Component): SolarArduinoProposalOrganism
- * Sección amplia (Full-Width) sobre fondo oscuro mate (`sheet-dark`) con Carrusel Zonal Interactivo
- * dedicada a la Administración Centralizada por Zonas Independientes (Zona Norte y Zona Oriente).
+ * Sección amplia (Full-Width) y 100% responsive sobre fondo oscuro mate (`sheet-dark`)
+ * con Carrusel Zonal Interactivo dedicada a la Administración Centralizada por Zonas Independientes.
  */
 export const SolarArduinoProposalOrganism =
   defineDumbComponent<SolarArduinoProposalOrganismProps>(
@@ -68,15 +68,14 @@ export const SolarArduinoProposalOrganism =
         <section
           id="propuesta-solar"
           className="sheet-dark"
-          style={{ display: 'flex', flexDirection: 'column', gap: '52px' }}
+          style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
         >
-          {/* Historia Dividida Amplia: Explicación Zonal a la izquierda + Carrusel Zonal a la derecha */}
           <div className="split-story-row">
             <div className="split-story-content">
               <div>
                 <span
                   style={{
-                    fontSize: '0.85rem',
+                    fontSize: '0.84rem',
                     fontWeight: 700,
                     color: '#a3e635',
                     textTransform: 'uppercase',
@@ -85,18 +84,18 @@ export const SolarArduinoProposalOrganism =
                 >
                   04 • Arquitectura Descentralizada sin Red Eléctrica
                 </span>
-                <h2 className="editorial-h2" style={{ color: '#ffffff', marginTop: '12px' }}>
+                <h2 className="editorial-h2" style={{ color: '#ffffff', marginTop: '10px' }}>
                   Administración Centralizada por{' '}
                   <span className="highlight-lime-pill">Zonas Independientes</span>
                 </h2>
               </div>
 
-              <p style={{ color: '#d1d5db', fontSize: '1.05rem', lineHeight: 1.75 }}>
+              <p style={{ color: '#d1d5db', fontSize: '1rem', lineHeight: 1.72 }}>
                 El mayor error del sistema actual de Cali es depender de la red eléctrica pública:
                 cuando falla un circuito eléctrico, se apagan múltiples semáforos al mismo tiempo.
               </p>
 
-              <p style={{ color: '#9ca3af', fontSize: '1rem', lineHeight: 1.75 }}>
+              <p style={{ color: '#9ca3af', fontSize: '0.96rem', lineHeight: 1.7 }}>
                 Nuestra propuesta divide la ciudad en <strong>Zonas Autónomas Independientes</strong>{' '}
                 (como la <strong>Zona Norte</strong> y la <strong>Zona Oriente</strong>). Cada poste
                 genera su propia energía con su panel solar, y los Arduinos de cada zona se
@@ -114,15 +113,15 @@ export const SolarArduinoProposalOrganism =
                 }}
               >
                 <div className="numbered-pill-row">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <span style={{ color: '#a3e635', fontWeight: 800, fontSize: '1.05rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <span style={{ color: '#a3e635', fontWeight: 800, fontSize: '1rem' }}>
                       01
                     </span>
                     <div>
-                      <strong style={{ color: '#ffffff', fontSize: '0.98rem', display: 'block' }}>
+                      <strong style={{ color: '#ffffff', fontSize: '0.94rem', display: 'block' }}>
                         Aislamiento Total de Fallas Eléctricas
                       </strong>
-                      <span style={{ color: '#9ca3af', fontSize: '0.86rem' }}>
+                      <span style={{ color: '#9ca3af', fontSize: '0.84rem' }}>
                         Si se va la luz en un barrio, la Zona Semafórica sigue operando al 100% con
                         sus paneles solares y baterías LiFePO4.
                       </span>
@@ -132,15 +131,15 @@ export const SolarArduinoProposalOrganism =
                 </div>
 
                 <div className="numbered-pill-row">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <span style={{ color: '#a3e635', fontWeight: 800, fontSize: '1.05rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <span style={{ color: '#a3e635', fontWeight: 800, fontSize: '1rem' }}>
                       02
                     </span>
                     <div>
-                      <strong style={{ color: '#ffffff', fontSize: '0.98rem', display: 'block' }}>
+                      <strong style={{ color: '#ffffff', fontSize: '0.94rem', display: 'block' }}>
                         Sincronización de Olas Verdes por Corredor
                       </strong>
-                      <span style={{ color: '#9ca3af', fontSize: '0.86rem' }}>
+                      <span style={{ color: '#9ca3af', fontSize: '0.84rem' }}>
                         La central de cada zona coordina los Arduinos de su sector (ej. Av. 3 Norte
                         o Carrera 29) para despejar las colas vehiculares.
                       </span>
@@ -159,27 +158,27 @@ export const SolarArduinoProposalOrganism =
             />
           </div>
 
-          {/* Tarjetas Amplias de Control de las 2 Zonas de Cali (Zona Norte y Zona Oriente) */}
-          <div id="zonas-autonomas" style={{ borderTop: '1px solid #2e3036', paddingTop: '44px' }}>
+          {/* Tarjetas Amplias de Control de las 2 Zonas de Cali */}
+          <div id="zonas-autonomas" style={{ borderTop: '1px solid #2e3036', paddingTop: '36px' }}>
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'flex-end',
                 flexWrap: 'wrap',
-                gap: '16px',
-                marginBottom: '28px',
+                gap: '14px',
+                marginBottom: '24px',
               }}
             >
               <div>
-                <span style={{ fontSize: '0.82rem', color: '#a3e635', fontWeight: 700 }}>
+                <span style={{ fontSize: '0.8rem', color: '#a3e635', fontWeight: 700 }}>
                   CONTROL CENTRALIZADO POR ZONAS • SIMULADOR DDD
                 </span>
                 <h3 className="editorial-h3" style={{ color: '#ffffff', marginTop: '6px' }}>
                   Estado de las Centrales Zonales Autónomas de Cali
                 </h3>
               </div>
-              <span style={{ fontSize: '0.92rem', color: '#9ca3af' }}>
+              <span style={{ fontSize: '0.88rem', color: '#9ca3af' }}>
                 Haz clic en una zona para migrar todos sus semáforos a operación Arduino + Solar:
               </span>
             </div>
@@ -200,17 +199,17 @@ export const SolarArduinoProposalOrganism =
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        gap: '12px',
+                        gap: '10px',
                         flexWrap: 'wrap',
                       }}
                     >
                       <div>
-                        <span style={{ fontSize: '0.8rem', color: '#a3e635', fontWeight: 700 }}>
+                        <span style={{ fontSize: '0.78rem', color: '#a3e635', fontWeight: 700 }}>
                           {zone.zoneId === 'ZONA_NORTE'
                             ? 'ZONA AUTÓNOMA 01 • NORTE DE CALI'
                             : 'ZONA AUTÓNOMA 02 • ORIENTE DE CALI'}
                         </span>
-                        <h4 style={{ fontSize: '1.3rem', color: '#ffffff', marginTop: '6px' }}>
+                        <h4 style={{ fontSize: '1.22rem', color: '#ffffff', marginTop: '4px' }}>
                           {zone.zoneName}
                         </h4>
                       </div>
@@ -225,22 +224,20 @@ export const SolarArduinoProposalOrganism =
                     </div>
 
                     <div
+                      className="two-metrics-grid"
                       style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(2, 1fr)',
-                        gap: '20px',
                         background: '#141416',
-                        padding: '24px',
-                        borderRadius: '20px',
+                        padding: '20px',
+                        borderRadius: '18px',
                       }}
                     >
                       <div>
-                        <span style={{ fontSize: '0.82rem', color: '#9ca3af', display: 'block' }}>
+                        <span style={{ fontSize: '0.78rem', color: '#9ca3af', display: 'block' }}>
                           Tiempo de Espera Promedio
                         </span>
                         <strong
                           style={{
-                            fontSize: '1.5rem',
+                            fontSize: '1.4rem',
                             color: '#a3e635',
                             marginTop: '4px',
                             display: 'block',
@@ -250,12 +247,12 @@ export const SolarArduinoProposalOrganism =
                         </strong>
                       </div>
                       <div>
-                        <span style={{ fontSize: '0.82rem', color: '#9ca3af', display: 'block' }}>
+                        <span style={{ fontSize: '0.78rem', color: '#9ca3af', display: 'block' }}>
                           Vehículos en Cola Zonal
                         </span>
                         <strong
                           style={{
-                            fontSize: '1.5rem',
+                            fontSize: '1.4rem',
                             color: '#ffffff',
                             marginTop: '4px',
                             display: 'block',
@@ -265,12 +262,12 @@ export const SolarArduinoProposalOrganism =
                         </strong>
                       </div>
                       <div>
-                        <span style={{ fontSize: '0.82rem', color: '#9ca3af', display: 'block' }}>
+                        <span style={{ fontSize: '0.78rem', color: '#9ca3af', display: 'block' }}>
                           Respaldo Solar por Poste
                         </span>
                         <strong
                           style={{
-                            fontSize: '1rem',
+                            fontSize: '0.94rem',
                             color: '#e5e7eb',
                             marginTop: '4px',
                             display: 'block',
@@ -280,12 +277,12 @@ export const SolarArduinoProposalOrganism =
                         </strong>
                       </div>
                       <div>
-                        <span style={{ fontSize: '0.82rem', color: '#9ca3af', display: 'block' }}>
+                        <span style={{ fontSize: '0.78rem', color: '#9ca3af', display: 'block' }}>
                           Ahorro Energético con LED
                         </span>
                         <strong
                           style={{
-                            fontSize: '1rem',
+                            fontSize: '0.94rem',
                             color: '#a3e635',
                             marginTop: '4px',
                             display: 'block',
