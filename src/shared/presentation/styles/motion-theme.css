@@ -893,3 +893,208 @@ body {
     font-size: 0.88rem;
   }
 }
+
+/* ==========================================================================
+   MODO OSCURO EDITORIAL (DARK MODE — ESTILO CREATIX / CARGO PANDA)
+   ========================================================================== */
+
+.theme-toggle-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-light);
+  background: var(--surface-soft);
+  color: var(--text-dark);
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.theme-toggle-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-lime);
+}
+
+.theme-toggle-pill__icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+[data-theme='dark'] {
+  --bg-page: #0b0c0e;
+  --surface-white: #14161a;
+  --surface-soft: #1d2026;
+  --surface-dark: #181a20;
+  --surface-dark-card: #22252d;
+
+  --accent-lime: #a3e635;
+  --accent-lime-soft: rgba(163, 230, 53, 0.14);
+  --accent-lime-dark: #bef264;
+
+  --text-dark: #f9fafb;
+  --text-body: #d1d5db;
+  --text-muted: #9ca3af;
+
+  --border-light: #2a2e37;
+  --border-dark: #323742;
+}
+
+[data-theme='dark'] .sheet-white {
+  background: var(--surface-white);
+  border-color: var(--border-light);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme='dark'] .pill-navbar {
+  background: #14161a;
+  border-color: #2a2e37;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme='dark'] .pill-navbar > div > .pill-btn--dark,
+[data-theme='dark'] .pill-btn--dark {
+  background: var(--accent-lime);
+  color: #111827;
+  font-weight: 700;
+}
+
+[data-theme='dark'] .pill-btn--secondary {
+  background: #1d2026;
+  color: #f9fafb;
+  border-color: #323742;
+}
+
+[data-theme='dark'] .pill-btn--secondary:hover:not(:disabled) {
+  background: #282c35;
+  border-color: var(--accent-lime);
+}
+
+[data-theme='dark'] .highlight-lime-word {
+  color: #a3e635;
+}
+
+[data-theme='dark'] .floating-glass-card,
+[data-theme='dark'] .editorial-carousel__caption-card {
+  background: rgba(24, 26, 32, 0.95);
+  border: 1px solid #323742;
+  color: #f9fafb;
+}
+
+[data-theme='dark'] .floating-glass-card strong,
+[data-theme='dark'] .editorial-carousel__caption-card strong {
+  color: #f9fafb !important;
+}
+
+[data-theme='dark'] .floating-glass-card span,
+[data-theme='dark'] .floating-glass-card p,
+[data-theme='dark'] .editorial-carousel__caption-card p {
+  color: #d1d5db !important;
+}
+
+[data-theme='dark'] .editorial-carousel__arrow-btn {
+  background: #22252d;
+  color: #f9fafb;
+  border-color: #383d48;
+}
+
+[data-theme='dark'] .editorial-carousel__arrow-btn--primary {
+  background: #a3e635;
+  color: #111827;
+  border-color: #a3e635;
+}
+
+[data-theme='dark'] .circle-arrow-badge {
+  background: #262932;
+  color: #f9fafb;
+}
+
+/* Adaptación de tarjetas comparativas (Red Mala vs Panel Solar) en Modo Oscuro */
+[data-theme='dark'] .comparison-panel-bad {
+  background: rgba(127, 29, 29, 0.18);
+  border-color: rgba(248, 113, 113, 0.38);
+}
+
+[data-theme='dark'] .comparison-panel-bad h3 {
+  color: #fca5a5 !important;
+}
+
+[data-theme='dark'] .comparison-panel-bad > div > div > p {
+  color: #fecaca !important;
+}
+
+[data-theme='dark'] .comparison-panel-good {
+  background: rgba(163, 230, 53, 0.1);
+  border-color: rgba(163, 230, 53, 0.45);
+}
+
+[data-theme='dark'] .comparison-panel-good h3 {
+  color: #bef264 !important;
+}
+
+[data-theme='dark'] .comparison-panel-good > div > div > p {
+  color: #d9f99d !important;
+}
+
+/* Cajas internas blancas dentro de secciones en Modo Oscuro */
+[data-theme='dark'] #que-es-arduino-solar div[style*='background: rgb(255, 255, 255)'],
+[data-theme='dark'] #que-es-arduino-solar div[style*='background: #ffffff'],
+[data-theme='dark'] .comparison-panel-bad div[style*='background: #ffffff'],
+[data-theme='dark'] .comparison-panel-good div[style*='background: #ffffff'] {
+  background: #1a1d23 !important;
+  border-color: #2e333d !important;
+  color: #f3f4f6 !important;
+}
+
+[data-theme='dark'] #que-es-arduino-solar div[style*='background: #fff7ed'],
+[data-theme='dark'] #caso-exito-recta div[style*='background: var(--accent-lime-soft)'] {
+  background: #1d2026 !important;
+  border-color: #323742 !important;
+}
+
+[data-theme='dark'] #que-es-arduino-solar div[style*='background: #fff7ed'] strong,
+[data-theme='dark'] #que-es-arduino-solar div[style*='background: #fff7ed'] p,
+[data-theme='dark'] #que-es-arduino-solar h3,
+[data-theme='dark'] #que-es-arduino-solar p,
+[data-theme='dark'] .comparison-panel-bad p,
+[data-theme='dark'] .comparison-panel-good p {
+  color: #e5e7eb !important;
+}
+
+[data-theme='dark'] .comparison-panel-bad .two-metrics-grid {
+  background: rgba(153, 27, 27, 0.35) !important;
+}
+
+[data-theme='dark'] .comparison-panel-bad .two-metrics-grid span,
+[data-theme='dark'] .comparison-panel-bad .two-metrics-grid strong {
+  color: #fecaca !important;
+}
+
+[data-theme='dark'] .comparison-panel-good .two-metrics-grid {
+  background: rgba(63, 98, 18, 0.38) !important;
+}
+
+[data-theme='dark'] .comparison-panel-good .two-metrics-grid span,
+[data-theme='dark'] .comparison-panel-good .two-metrics-grid strong {
+  color: #ecfccb !important;
+}
+
+@media (max-width: 768px) {
+  .pill-navbar__actions {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+
+  .theme-toggle-pill {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .pill-navbar__actions > .pill-btn {
+    flex: 1;
+  }
+}

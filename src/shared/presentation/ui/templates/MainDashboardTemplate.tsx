@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { defineDumbComponent } from '@shared/presentation/contracts/ComponentContracts';
+import { ThemeToggleAtom } from '../atoms/ThemeToggleAtom';
 
 export interface MainDashboardTemplateProps {
   readonly headerSlot: React.ReactNode;
@@ -7,14 +8,33 @@ export interface MainDashboardTemplateProps {
   readonly mainContentSlot: React.ReactNode;
 }
 
+const THEME_STORAGE_KEY = 'cali-semaforos-theme';
+
 /**
  * TEMPLATE COMPARTIDO (Dumb Component): MainDashboardTemplate
- * Layout Editorial Full-Width (100% de la pantalla) de Bloques Apilados con alto aire visual.
+ * Layout Editorial Full-Width con soporte nativo para Modo Claro / Modo Oscuro persistente.
  */
 export const MainDashboardTemplate = defineDumbComponent<MainDashboardTemplateProps>(
   'template',
   'shared',
   ({ headerSlot, summarySlot, mainContentSlot }) => {
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+      if (typeof window === 'undefined') return false;
+      const saved = window.localStorage.getItem(THEME_STORAGE_KEY);
+      return saved === 'dark';
+    });
+
+    useEffect(() => {
+      const root = document.documentElement;
+      if (isDarkMode) {
+        root.setAttribute('data-theme', 'dark');
+        window.localStorage.setItem(THEME_STORAGE_KEY, 'dark');
+      } else {
+        root.setAttribute('data-theme', 'light');
+        window.localStorage.setItem(THEME_STORAGE_KEY, 'light');
+      }
+    }, [isDarkMode]);
+
     return (
       <div className="editorial-wrapper">
         {/* Barra de Navegación Flotante tipo Cápsula a todo lo ancho */}
@@ -42,9 +62,18 @@ export const MainDashboardTemplate = defineDumbComponent<MainDashboardTemplatePr
             </a>
           </div>
 
-          <a href="#simulador-cruces" className="pill-btn pill-btn--dark">
-            Ver Comparación →
-          </a>
+          <div
+            className="pill-navbar__actions"
+            style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}
+          >
+            <ThemeToggleAtom
+              isDarkMode={isDarkMode}
+              onToggleTheme={() => setIsDarkMode((prev) => !prev)}
+            />
+            <a href="#simulador-cruces" className="pill-btn pill-btn--dark">
+              Ver Comparación →
+            </a>
+          </div>
         </nav>
 
         {/* Hero Principal */}

@@ -4,6 +4,9 @@ export type { ButtonAtomProps } from './atoms/ButtonAtom';
 export { BadgeAtom } from './atoms/BadgeAtom';
 export type { BadgeAtomProps } from './atoms/BadgeAtom';
 
+export { ThemeToggleAtom } from './atoms/ThemeToggleAtom';
+export type { ThemeToggleAtomProps } from './atoms/ThemeToggleAtom';
+
 export { StatCardMolecule } from './molecules/StatCardMolecule';
 export type { StatCardMoleculeProps } from './molecules/StatCardMolecule';
 
