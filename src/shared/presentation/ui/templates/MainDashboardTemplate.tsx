@@ -28,22 +28,22 @@ export const MainDashboardTemplate = defineDumbComponent<MainDashboardTemplatePr
             <a href="#contexto-cali" className="pill-navbar__link pill-navbar__link--active">
               Contexto en Cali
             </a>
-            <a href="#problemas-cali" className="pill-navbar__link">
-              Problemáticas
-            </a>
             <a href="#que-es-arduino-solar" className="pill-navbar__link">
-              ¿Qué es Arduino y Paneles Solares?
+              Arduino y Paneles Solares
             </a>
             <a href="#propuesta-solar" className="pill-navbar__link">
               Zonas Independientes
             </a>
+            <a href="#caso-exito-recta" className="pill-navbar__link">
+              Caso Real: Recta Cali–Palmira
+            </a>
             <a href="#simulador-cruces" className="pill-navbar__link">
-              Cruces de Cali (Tabla 2)
+              Ejemplo Comparativo
             </a>
           </div>
 
           <a href="#simulador-cruces" className="pill-btn pill-btn--dark">
-            Simular Intersecciones →
+            Ver Comparación →
           </a>
         </nav>
 

@@ -12,6 +12,7 @@ import {
 import { CaliContextAndProblemsOrganism } from '../components/organisms/CaliContextAndProblemsOrganism';
 import { ArduinoAndSolarExplanationOrganism } from '../components/organisms/ArduinoAndSolarExplanationOrganism';
 import { SolarArduinoProposalOrganism } from '../components/organisms/SolarArduinoProposalOrganism';
+import { RectaCaliPalmiraSolarCaseOrganism } from '../components/organisms/RectaCaliPalmiraSolarCaseOrganism';
 import { IntersectionCardOrganism } from '../components/organisms/IntersectionCardOrganism';
 
 export interface TrafficControlSmartContainerProps {
@@ -24,7 +25,8 @@ export interface TrafficControlSmartContainerProps {
  * 1. Contexto y Problemas en Cali
  * 2. ¿Qué es un Arduino, qué son los Paneles Solares y cómo juntos resuelven el problema?
  * 3. Administración Centralizada por Zonas Independientes (Off-Grid)
- * 4. Ejemplo Comparativo Único Lado a Lado: Semáforo con Red Eléctrica Mala vs. Semáforo con Panel Solar + Arduino
+ * 4. Caso de Éxito Real en el Valle: Iluminación Solar de la Recta Cali–Palmira (>90% avance)
+ * 5. Ejemplo Comparativo Único Lado a Lado: Semáforo con Red Eléctrica Mala vs. Semáforo con Panel Solar + Arduino
  */
 export const TrafficControlSmartContainer =
   defineSmartContainer<TrafficControlSmartContainerProps>(
@@ -127,13 +129,19 @@ export const TrafficControlSmartContainer =
                 synergyImageUrl="/images/arduino-solar-semaphore.png"
               />
 
-              {/* SECCIÓN 3: Administración Centralizada por Zonas Independientes (Estilo Oscuro Creatix) */}
+              {/* SECCIÓN 3: Administración Centralizada por Zonas Independientes */}
               <SolarArduinoProposalOrganism
                 zones={summary.zoneSummaries}
                 onActivateZoneSolar={handleActivateZoneSolar}
               />
 
-              {/* SECCIÓN 4: UN SOLO EJEMPLO COMPARATIVO CLARO (RED ELÉCTRICA MALA VS. PANEL SOLAR) */}
+              {/* SECCIÓN 4: Caso Real en el Valle del Cauca — Iluminación Solar de la Recta Cali–Palmira */}
+              <RectaCaliPalmiraSolarCaseOrganism
+                palmiraGovUrl="https://palmira.gov.co/avances-en-la-iluminacion-de-la-recta-palmira-cali-una-obra-que-transforma-este-corredor-vial-con-energia-sostenible/"
+                caracolNewsUrl="https://caracol.com.co/2026/02/11/la-recta-palmiracali-supera-el-90-de-avance-en-su-proyecto-de-iluminacion-solar/"
+              />
+
+              {/* SECCIÓN 5: UN SOLO EJEMPLO COMPARATIVO CLARO (RED ELÉCTRICA MALA VS. PANEL SOLAR) */}
               <section id="simulador-cruces" className="sheet-white">
                 <div
                   style={{
