@@ -1,10 +1,10 @@
+import { useState } from 'react';
 import {
   DumbComponentProps,
   defineDumbComponent,
 } from '@shared/presentation/contracts/ComponentContracts';
 import {
   BadgeAtom,
-  ButtonAtom,
   ImageCarouselMolecule,
   CarouselSlideItem,
 } from '@shared/presentation/ui';
@@ -54,22 +54,54 @@ const ZONAL_ADMIN_CAROUSEL_SLIDES: readonly CarouselSlideItem[] = [
   },
 ];
 
+interface InteractiveZoneStep {
+  readonly id: string;
+  readonly name: string;
+  readonly sector: string;
+  readonly crosses: readonly string[];
+}
+
+const INTERACTIVE_ZONES: readonly InteractiveZoneStep[] = [
+  {
+    id: 'norte',
+    name: 'Zona 1: Norte de Cali',
+    sector: 'Corredor Av. 3 Norte y Av. 6 Norte',
+    crosses: ['Calle 47 con Av. 6N', 'Calle 52 con Av. 3N', 'Calle 55 con Av. 3N'],
+  },
+  {
+    id: 'oriente',
+    name: 'Zona 2: Oriente de Cali',
+    sector: 'Corredor Carrera 28D, Carrera 29 y Carrera 7L',
+    crosses: ['Calle 72U con Cra. 28D', 'Calle 44 con Cra. 29', 'Calle 70 con Cra. 7L'],
+  },
+];
+
 /**
  * ORGANISMO DEL MÓDULO (Dumb Component): SolarArduinoProposalOrganism
- * Sección amplia (Full-Width) y 100% responsive sobre fondo oscuro mate (`sheet-dark`)
- * con Carrusel Zonal Interactivo dedicada a la Administración Centralizada por Zonas Independientes.
+ * Explica de forma visual y con una prueba interactiva muy fácil de entender por qué dividir
+ * a Cali en Zonas Solares Independientes evita que un apagón colapse los semáforos.
  */
 export const SolarArduinoProposalOrganism =
   defineDumbComponent<SolarArduinoProposalOrganismProps>(
     'organism',
     'traffic-control',
-    ({ zones, onActivateZoneSolar }) => {
+    () => {
+      // Estado interactivo simple para que cualquier persona entienda cómo funcionan las Zonas Independientes
+      const [publicGridBlackout, setPublicGridBlackout] = useState<boolean>(false);
+      const [systemType, setSystemType] = useState<'TRADITIONAL_GRID' | 'SOLAR_ZONES'>(
+        'SOLAR_ZONES'
+      );
+
+      const isBlackoutAffectingLights =
+        publicGridBlackout && systemType === 'TRADITIONAL_GRID';
+
       return (
         <section
           id="propuesta-solar"
           className="sheet-dark"
           style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}
         >
+          {/* FILA 1: Explicación Clara + Carrusel Zonal */}
           <div className="split-story-row">
             <div className="split-story-content">
               <div>
@@ -91,17 +123,16 @@ export const SolarArduinoProposalOrganism =
               </div>
 
               <p style={{ color: '#d1d5db', fontSize: '1rem', lineHeight: 1.72 }}>
-                El mayor error del sistema actual de Cali es depender de la red eléctrica pública:
-                cuando falla un circuito eléctrico, se apagan múltiples semáforos al mismo tiempo.
+                El mayor error del sistema actual de Cali es que todos los semáforos de un sector
+                dependen del mismo cable de energía pública: <strong>si explota un transformador o
+                se cae la luz por lluvia, se apagan todos los cruces a la vez</strong>.
               </p>
 
               <p style={{ color: '#9ca3af', fontSize: '0.96rem', lineHeight: 1.7 }}>
-                Nuestra propuesta divide la ciudad en <strong>Zonas Autónomas Independientes</strong>{' '}
-                (como la <strong>Zona Norte</strong> y la <strong>Zona Oriente</strong>). Cada poste
-                genera su propia energía con su panel solar, y los Arduinos de cada zona se
-                comunican inalámbricamente (Red Mesh LoRaWAN) con una{' '}
-                <strong style={{ color: '#ffffff' }}>Central Zonal Autónoma</strong> para coordinar
-                olas verdes y reportar su estado en tiempo real.
+                Nuestra solución divide a Cali en <strong>Zonas Independientes</strong> (por
+                ejemplo, <strong>Zona Norte</strong> y <strong>Zona Oriente</strong>). Cada semáforo
+                tiene su propio panel solar y batería, y una pequeña central en cada zona coordina
+                los Arduinos por antena inalámbrica para que los carros avancen en "ola verde".
               </p>
 
               <div
@@ -119,11 +150,11 @@ export const SolarArduinoProposalOrganism =
                     </span>
                     <div>
                       <strong style={{ color: '#ffffff', fontSize: '0.94rem', display: 'block' }}>
-                        Aislamiento Total de Fallas Eléctricas
+                        Aislamiento Total ante Cortes de Energía
                       </strong>
                       <span style={{ color: '#9ca3af', fontSize: '0.84rem' }}>
-                        Si se va la luz en un barrio, la Zona Semafórica sigue operando al 100% con
-                        sus paneles solares y baterías LiFePO4.
+                        Aunque un barrio entero de Cali se quede sin luz eléctrica, los semáforos de
+                        la zona siguen encendidos gracias a sus paneles solares.
                       </span>
                     </div>
                   </div>
@@ -137,11 +168,11 @@ export const SolarArduinoProposalOrganism =
                     </span>
                     <div>
                       <strong style={{ color: '#ffffff', fontSize: '0.94rem', display: 'block' }}>
-                        Sincronización de Olas Verdes por Corredor
+                        Si un Semáforo Falla, el Resto de la Zona No Cae
                       </strong>
                       <span style={{ color: '#9ca3af', fontSize: '0.84rem' }}>
-                        La central de cada zona coordina los Arduinos de su sector (ej. Av. 3 Norte
-                        o Carrera 29) para despejar las colas vehiculares.
+                        Como cada poste tiene su propio Arduino y panel solar, una avería puntual
+                        no arrastra a los demás cruces de la avenida.
                       </span>
                     </div>
                   </div>
@@ -158,156 +189,219 @@ export const SolarArduinoProposalOrganism =
             />
           </div>
 
-          {/* Tarjetas Amplias de Control de las 2 Zonas de Cali */}
-          <div id="zonas-autonomas" style={{ borderTop: '1px solid #2e3036', paddingTop: '36px' }}>
+          {/* =====================================================================
+              FILA 2: DEMO INTERACTIVA FÁCIL DE ENTENDER:
+              "¿QUÉ PASA EN CALI CUANDO SE VA LA LUZ?"
+             ===================================================================== */}
+          <div
+            id="zonas-autonomas"
+            style={{
+              background: '#1e2026',
+              border: '1px solid #323742',
+              borderRadius: '28px',
+              padding: 'clamp(22px, 3.5vw, 40px)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '28px',
+            }}
+          >
+            {/* Encabezado y Botones de Prueba en 2 pasos muy simples */}
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'flex-end',
+                alignItems: 'center',
                 flexWrap: 'wrap',
-                gap: '14px',
-                marginBottom: '24px',
+                gap: '20px',
               }}
             >
               <div>
-                <span style={{ fontSize: '0.8rem', color: '#a3e635', fontWeight: 700 }}>
-                  CONTROL CENTRALIZADO POR ZONAS • SIMULADOR DDD
-                </span>
-                <h3 className="editorial-h3" style={{ color: '#ffffff', marginTop: '6px' }}>
-                  Estado de las Centrales Zonales Autónomas de Cali
+                <BadgeAtom
+                  text="PRUEBA INTERACTIVA • ¿POR QUÉ USAR ZONAS SOLARES?"
+                  tone="success"
+                />
+                <h3
+                  className="editorial-h3"
+                  style={{ color: '#ffffff', marginTop: '10px' }}
+                >
+                  Haz la prueba: ¿Qué pasa en las zonas de Cali cuando hay un apagón eléctrico?
                 </h3>
+                <p style={{ color: '#9ca3af', fontSize: '0.92rem', marginTop: '4px' }}>
+                  Provoca un corte de energía con el botón y compara qué sucede con la red vieja vs.
+                  nuestras Zonas Solares Independientes:
+                </p>
               </div>
-              <span style={{ fontSize: '0.88rem', color: '#9ca3af' }}>
-                Haz clic en una zona para migrar todos sus semáforos a operación Arduino + Solar:
-              </span>
+
+              {/* Botones claros de simulación */}
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={() => setPublicGridBlackout((prev) => !prev)}
+                  className={`pill-btn ${
+                    publicGridBlackout ? 'pill-btn--danger' : 'pill-btn--secondary'
+                  }`}
+                >
+                  {publicGridBlackout
+                    ? '⚡ Hay Apagón en la Ciudad (Clic para Restaurar Luz)'
+                    : '⛈️ Provocar Apagón Eléctrico en Cali'}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setSystemType((prev) =>
+                      prev === 'SOLAR_ZONES' ? 'TRADITIONAL_GRID' : 'SOLAR_ZONES'
+                    )
+                  }
+                  className="pill-btn pill-btn--primary"
+                >
+                  {systemType === 'SOLAR_ZONES'
+                    ? '🔄 Ver cómo fallaría con Red Eléctrica Vieja'
+                    : '☀️ Volver a Zonas Solares + Arduino'}
+                </button>
+              </div>
             </div>
 
-            <div className="bento-2col">
-              {zones.map((zone) => {
-                const allMigrated = zone.autonomousNodesCount === zone.intersectionsCount;
-                return (
-                  <div
-                    key={zone.zoneId}
-                    className="bento-card-dark"
+            {/* Banner visual del resultado actual */}
+            <div
+              style={{
+                padding: '18px 24px',
+                borderRadius: '20px',
+                background: isBlackoutAffectingLights
+                  ? 'rgba(239, 68, 68, 0.16)'
+                  : 'rgba(163, 230, 53, 0.12)',
+                border: isBlackoutAffectingLights
+                  ? '1px solid rgba(248, 113, 113, 0.45)'
+                  : '1px solid rgba(163, 230, 53, 0.45)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '12px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span style={{ fontSize: '1.6rem' }}>
+                  {isBlackoutAffectingLights ? '🚨' : '✅'}
+                </span>
+                <div>
+                  <strong
                     style={{
-                      borderColor: allMigrated ? '#a3e635' : '#2e3036',
+                      fontSize: '1rem',
+                      color: isBlackoutAffectingLights ? '#fca5a5' : '#a3e635',
+                      display: 'block',
                     }}
                   >
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        gap: '10px',
-                        flexWrap: 'wrap',
-                      }}
-                    >
-                      <div>
-                        <span style={{ fontSize: '0.78rem', color: '#a3e635', fontWeight: 700 }}>
-                          {zone.zoneId === 'ZONA_NORTE'
-                            ? 'ZONA AUTÓNOMA 01 • NORTE DE CALI'
-                            : 'ZONA AUTÓNOMA 02 • ORIENTE DE CALI'}
-                        </span>
-                        <h4 style={{ fontSize: '1.22rem', color: '#ffffff', marginTop: '4px' }}>
-                          {zone.zoneName}
-                        </h4>
-                      </div>
-                      <BadgeAtom
-                        text={
-                          allMigrated
-                            ? '100% Solar Off-Grid'
-                            : `${zone.autonomousNodesCount}/${zone.intersectionsCount} Nodos Solares`
-                        }
-                        tone={allMigrated ? 'success' : 'warning'}
-                      />
+                    {isBlackoutAffectingLights
+                      ? '¡CAOS TOTAL! Se fue la luz en Cali y todos los semáforos se apagaron al mismo tiempo'
+                      : publicGridBlackout
+                        ? '¡SIN PROBLEMAS! Hay apagón en los barrios, pero las Zonas Solares siguen 100% encendidas'
+                        : 'Operación Normal: Las Zonas Norte y Oriente coordinan sus semáforos con energía solar'}
+                  </strong>
+                  <span style={{ fontSize: '0.86rem', color: '#d1d5db' }}>
+                    {isBlackoutAffectingLights
+                      ? 'Al depender de los cables de la ciudad, un solo corte eléctrico deja a oscuras todas las intersecciones.'
+                      : 'Cada zona funciona con sus propios paneles solares (72h de batería) y Arduinos conectados por antena.'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Las 2 Zonas de Cali mostradas de forma visual con sus 3 semáforos cada una */}
+            <div className="bento-2col">
+              {INTERACTIVE_ZONES.map((zone) => (
+                <div
+                  key={zone.id}
+                  style={{
+                    background: '#14161a',
+                    border: isBlackoutAffectingLights
+                      ? '1px solid #ef4444'
+                      : '1px solid #a3e635',
+                    borderRadius: '24px',
+                    padding: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '18px',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      flexWrap: 'wrap',
+                      gap: '10px',
+                    }}
+                  >
+                    <div>
+                      <strong style={{ fontSize: '1.15rem', color: '#ffffff', display: 'block' }}>
+                        {zone.name}
+                      </strong>
+                      <span style={{ fontSize: '0.82rem', color: '#9ca3af' }}>{zone.sector}</span>
                     </div>
 
-                    <div
-                      className="two-metrics-grid"
-                      style={{
-                        background: '#141416',
-                        padding: '20px',
-                        borderRadius: '18px',
-                      }}
-                    >
-                      <div>
-                        <span style={{ fontSize: '0.78rem', color: '#9ca3af', display: 'block' }}>
-                          Tiempo de Espera Promedio
-                        </span>
-                        <strong
-                          style={{
-                            fontSize: '1.4rem',
-                            color: '#a3e635',
-                            marginTop: '4px',
-                            display: 'block',
-                          }}
-                        >
-                          ⏱️ {zone.averageWaitSeconds} seg
-                        </strong>
-                      </div>
-                      <div>
-                        <span style={{ fontSize: '0.78rem', color: '#9ca3af', display: 'block' }}>
-                          Vehículos en Cola Zonal
-                        </span>
-                        <strong
-                          style={{
-                            fontSize: '1.4rem',
-                            color: '#ffffff',
-                            marginTop: '4px',
-                            display: 'block',
-                          }}
-                        >
-                          🚗 {zone.totalVehiclesInQueue} veh.
-                        </strong>
-                      </div>
-                      <div>
-                        <span style={{ fontSize: '0.78rem', color: '#9ca3af', display: 'block' }}>
-                          Respaldo Solar por Poste
-                        </span>
-                        <strong
-                          style={{
-                            fontSize: '0.94rem',
-                            color: '#e5e7eb',
-                            marginTop: '4px',
-                            display: 'block',
-                          }}
-                        >
-                          🔋 {zone.batteryAutonomyHours} horas sin red eléctrica
-                        </strong>
-                      </div>
-                      <div>
-                        <span style={{ fontSize: '0.78rem', color: '#9ca3af', display: 'block' }}>
-                          Ahorro Energético con LED
-                        </span>
-                        <strong
-                          style={{
-                            fontSize: '0.94rem',
-                            color: '#a3e635',
-                            marginTop: '4px',
-                            display: 'block',
-                          }}
-                        >
-                          💡 -{zone.energySavingsPercentage}% consumo (18W)
-                        </strong>
-                      </div>
-                    </div>
-
-                    <ButtonAtom
-                      label={
-                        allMigrated
-                          ? '✓ Zona Operando 100% con Arduino + Paneles Solares'
-                          : `Activar Red Arduino + Solar en ${
-                              zone.zoneId === 'ZONA_NORTE' ? 'Zona Norte' : 'Zona Oriente'
-                            } →`
+                    <BadgeAtom
+                      text={
+                        isBlackoutAffectingLights
+                          ? '❌ ZONA APAGADA'
+                          : systemType === 'SOLAR_ZONES'
+                            ? '☀️ ZONA SOLAR ACTIVA'
+                            : '🔌 CONECTADA A RED PÚBLICA'
                       }
-                      variant={allMigrated ? 'secondary' : 'primary'}
-                      disabled={allMigrated}
-                      onClick={() => onActivateZoneSolar(zone.zoneId)}
+                      tone={isBlackoutAffectingLights ? 'danger' : 'success'}
                     />
                   </div>
-                );
-              })}
+
+                  {/* Lista visual de los 3 cruces dentro de esa zona */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {zone.crosses.map((crossName) => (
+                      <div
+                        key={crossName}
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          gap: '10px',
+                          background: '#1d2026',
+                          padding: '12px 16px',
+                          borderRadius: '14px',
+                          border: '1px solid #2a2e37',
+                        }}
+                      >
+                        <span style={{ fontSize: '0.88rem', color: '#f3f4f6', fontWeight: 600 }}>
+                          🚦 {crossName}
+                        </span>
+
+                        <span
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            fontSize: '0.78rem',
+                            fontWeight: 700,
+                            color: isBlackoutAffectingLights ? '#f87171' : '#a3e635',
+                          }}
+                        >
+                          <span
+                            style={{
+                              width: '10px',
+                              height: '10px',
+                              borderRadius: '50%',
+                              background: isBlackoutAffectingLights ? '#ef4444' : '#a3e635',
+                              boxShadow: isBlackoutAffectingLights
+                                ? 'none'
+                                : '0 0 10px #a3e635',
+                            }}
+                          />
+                          {isBlackoutAffectingLights
+                            ? 'Apagado (Trancón)'
+                            : 'Funcionando (Ola Verde)'}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
