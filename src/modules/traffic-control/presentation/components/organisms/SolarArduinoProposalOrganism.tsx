@@ -86,14 +86,12 @@ export const SolarArduinoProposalOrganism =
     'organism',
     'traffic-control',
     () => {
-      // Estado interactivo simple para que cualquier persona entienda cómo funcionan las Zonas Independientes
-      const [publicGridBlackout, setPublicGridBlackout] = useState<boolean>(false);
+      // Un único estado claro: comparar bajo un apagón en Cali qué pasa con Zonas Solares vs. Red Eléctrica Vieja
       const [systemType, setSystemType] = useState<'TRADITIONAL_GRID' | 'SOLAR_ZONES'>(
         'SOLAR_ZONES'
       );
 
-      const isBlackoutAffectingLights =
-        publicGridBlackout && systemType === 'TRADITIONAL_GRID';
+      const isBlackoutAffectingLights = systemType === 'TRADITIONAL_GRID';
 
       return (
         <section
@@ -205,7 +203,7 @@ export const SolarArduinoProposalOrganism =
               gap: '28px',
             }}
           >
-            {/* Encabezado y Botones de Prueba en 2 pasos muy simples */}
+            {/* Encabezado y un SOLO botón interactivo muy claro */}
             <div
               style={{
                 display: 'flex',
@@ -227,25 +225,13 @@ export const SolarArduinoProposalOrganism =
                   Haz la prueba: ¿Qué pasa en las zonas de Cali cuando hay un apagón eléctrico?
                 </h3>
                 <p style={{ color: '#9ca3af', fontSize: '0.92rem', marginTop: '4px' }}>
-                  Provoca un corte de energía con el botón y compara qué sucede con la red vieja vs.
-                  nuestras Zonas Solares Independientes:
+                  Alterna con el botón para comparar qué sucede durante un corte de energía con la
+                  red vieja vs. nuestras Zonas Solares Independientes:
                 </p>
               </div>
 
-              {/* Botones claros de simulación */}
-              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                <button
-                  type="button"
-                  onClick={() => setPublicGridBlackout((prev) => !prev)}
-                  className={`pill-btn ${
-                    publicGridBlackout ? 'pill-btn--danger' : 'pill-btn--secondary'
-                  }`}
-                >
-                  {publicGridBlackout
-                    ? '⚡ Hay Apagón en la Ciudad (Clic para Restaurar Luz)'
-                    : '⛈️ Provocar Apagón Eléctrico en Cali'}
-                </button>
-
+              {/* Único botón de simulación */}
+              <div>
                 <button
                   type="button"
                   onClick={() =>
@@ -253,10 +239,12 @@ export const SolarArduinoProposalOrganism =
                       prev === 'SOLAR_ZONES' ? 'TRADITIONAL_GRID' : 'SOLAR_ZONES'
                     )
                   }
-                  className="pill-btn pill-btn--primary"
+                  className={`pill-btn ${
+                    systemType === 'SOLAR_ZONES' ? 'pill-btn--danger' : 'pill-btn--primary'
+                  }`}
                 >
                   {systemType === 'SOLAR_ZONES'
-                    ? '🔄 Ver cómo fallaría con Red Eléctrica Vieja'
+                    ? '🔌 Ver cómo fallaría con Red Eléctrica Vieja'
                     : '☀️ Volver a Zonas Solares + Arduino'}
                 </button>
               </div>
@@ -294,9 +282,7 @@ export const SolarArduinoProposalOrganism =
                   >
                     {isBlackoutAffectingLights
                       ? '¡CAOS TOTAL! Se fue la luz en Cali y todos los semáforos se apagaron al mismo tiempo'
-                      : publicGridBlackout
-                        ? '¡SIN PROBLEMAS! Hay apagón en los barrios, pero las Zonas Solares siguen 100% encendidas'
-                        : 'Operación Normal: Las Zonas Norte y Oriente coordinan sus semáforos con energía solar'}
+                      : '¡SIN PROBLEMAS! Aunque haya apagón en los barrios, las Zonas Solares siguen 100% encendidas'}
                   </strong>
                   <span style={{ fontSize: '0.86rem', color: '#d1d5db' }}>
                     {isBlackoutAffectingLights
